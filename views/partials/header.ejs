@@ -13,7 +13,7 @@
       <a href="/about">About</a>
       <a href="/search">Search</a>
 
-      <% if (currentUser) { %>
+      <% if (typeof currentUser !== "undefined" && currentUser) { %>
         <a href="/workouts">My Workouts</a>
         <a href="/workouts/add">Add Workout</a>
         <span class="nav-user">Logged in as <%= currentUser.username %></span>
