@@ -6,11 +6,6 @@ require('dotenv').config();
 
 const db = require('./db'); // <-- ONLY ONE db import
 
-// Test MySQL connection
-db.getConnection()
-  .then(() => console.log("✅ Node is connected to MySQL"))
-  .catch(err => console.error("❌ Node cannot connect to MySQL:", err));
-
 const app = express();
 
 
