@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<h2>Search Results</h2>
+
+<p>Search term: <strong><%= query %></strong></p>
+
+<% if (message) { %>
+  <p><%= message %></p>
+<% } %>
+
+<% if (results && results.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Activity</th>
+        <th>Duration (mins)</th>
+        <th>Intensity</th>
+        <th>User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.forEach(r => { %>
+        <tr>
+          <td><%= r.workout_date.toISOString().slice(0,10) %></td>
+          <td><%= r.activity %></td>
+          <td><%= r.duration_minutes %></td>
+          <td><%= r.intensity || '-' %></td>
+          <td><%= r.username %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('partials/footer') %>

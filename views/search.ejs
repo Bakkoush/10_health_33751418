@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<h2>Search Workouts</h2>
+<p>Search by activity name or username.</p>
+
+<form method="get" action="/search/results" class="form-card">
+  <label>
+    Search term
+    <input type="text" name="q" />
+  </label>
+  <button type="submit">Search</button>
+</form>
+
+<% if (message) { %>
+  <p><%= message %></p>
+<% } %>
+
+<%- include('partials/footer') %>

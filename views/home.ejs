@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<h2>Welcome</h2>
+<p>
+  This health &amp; fitness app lets you log your workouts and search
+  activities logged by other users.
+</p>
+
+<h3>Latest Workouts</h3>
+
+<% if (latestWorkouts && latestWorkouts.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Activity</th>
+        <th>Duration (mins)</th>
+        <th>User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% latestWorkouts.forEach(w => { %>
+        <tr>
+          <td><%= w.workout_date.toISOString().slice(0,10) %></td>
+          <td><%= w.activity %></td>
+          <td><%= w.duration_minutes %></td>
+          <td><%= w.username %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>No workouts have been logged yet.</p>
+<% } %>
+
+<%- include('partials/footer') %>

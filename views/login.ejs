@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<h2>Login</h2>
+
+<form method="post" action="/login" class="form-card">
+  <label>
+    Username
+    <input type="text" name="username" required />
+  </label>
+
+  <label>
+    Password
+    <input type="password" name="password" required />
+  </label>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <button type="submit">Login</button>
+</form>
+
+<p class="hint">
+  Use username <strong>gold</strong> and password <strong>smiths</strong>.
+</p>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<h2>Add Workout</h2>
+
+<form method="post" action="/workouts/add" class="form-card">
+  <label>
+    Date
+    <input type="date" name="workout_date" required />
+  </label>
+
+  <label>
+    Activity
+    <input type="text" name="activity" placeholder="e.g. Running" required />
+  </label>
+
+  <label>
+    Duration (minutes)
+    <input type="number" name="duration_minutes" min="1" required />
+  </label>
+
+  <label>
+    Intensity
+    <select name="intensity">
+      <option value="">Select…</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </label>
+
+  <label>
+    Notes
+    <textarea name="notes" rows="3"></textarea>
+  </label>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <button type="submit">Save Workout</button>
+</form>
+
+<%- include('partials/footer') %>

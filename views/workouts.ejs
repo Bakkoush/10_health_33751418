@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<h2>My Workouts</h2>
+
+<% if (workouts && workouts.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Activity</th>
+        <th>Duration (mins)</th>
+        <th>Intensity</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% workouts.forEach(w => { %>
+        <tr>
+          <td><%= w.workout_date.toISOString().slice(0,10) %></td>
+          <td><%= w.activity %></td>
+          <td><%= w.duration_minutes %></td>
+          <td><%= w.intensity || '-' %></td>
+          <td><%= w.notes || '' %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>You haven’t logged any workouts yet.</p>
+  <p><a href="/workouts/add">Add your first workout</a>.</p>
+<% } %>
+
+<%- include('partials/footer') %>

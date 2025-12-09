@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0 0 0.5rem 0;
+}
+
+nav a {
+  color: white;
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.nav-user {
+  margin-left: 1rem;
+  font-style: italic;
+}
+
+main {
+  padding: 1rem 2rem 3rem 2rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+table th {
+  background: #eee;
+}
+
+.form-card {
+  background: white;
+  padding: 1rem;
+  max-width: 450px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.form-card label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #3498db;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+.error {
+  color: red;
+  margin-top: 0.5rem;
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 0.7rem;
+  background: #2c3e50;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.form-card input {
+  margin-bottom: 0.5rem;
+}
+
+.hint {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
