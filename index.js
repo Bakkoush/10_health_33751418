@@ -61,9 +61,9 @@ app.get('/about', (req, res) => {
 
 // ---------------- LOGIN ----------------
 app.get('/login', (req, res) => {
-  // If already logged in, just show the login page with a message instead of redirect
+  // If already logged in, just show loggedin page
   if (req.session.user) {
-    return res.render('login', { error: 'You are already logged in.' });
+    return res.render('loggedin', { user: req.session.user });
   }
   res.render('login', { error: null });
 });
@@ -83,7 +83,8 @@ app.post('/login', async (req, res) => {
         username: rows[0].username
       };
 
-      return res.render('login', { error: 'Login successful! You may now access protected pages.' });
+      // ⭐ SUCCESS — show loggedin.ejs
+      return res.render('loggedin', { user: req.session.user });
 
     } else {
       return res.render('login', { error: 'Invalid username or password' });
@@ -93,6 +94,7 @@ app.post('/login', async (req, res) => {
     return res.render('login', { error: 'An error occurred while logging in' });
   }
 });
+
 
 
 // ---------------- LOGOUT ----------------
