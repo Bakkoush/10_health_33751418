@@ -4,10 +4,9 @@ const session = require('express-session');
 const path = require('path');
 require('dotenv').config();
 
-const db = require('./db'); // <-- ONLY ONE db import
+const db = require('./db');
 
 const app = express();
-
 
 // View engine
 app.set('view engine', 'ejs');
@@ -19,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Body parsing
 app.use(express.urlencoded({ extended: true }));
 
-// Sessions (basic, like in labs)
+// Sessions
 app.use(
   session({
     secret: 'change_this_secret_33751418',
@@ -28,21 +27,16 @@ app.use(
   })
 );
 
-// Make user available to all templates
-app.use((req, res, next) => {
-  res.locals.currentUser = req.session.user || null;
-  next();
-});
-
-// Auth middleware
+// ---------------- LOGIN PROTECTION ----------------
+// NO redirect – shows 401 instead
 function requireLogin(req, res, next) {
   if (!req.session.user) {
-    return res.redirect('/login');
+    return res.status(401).send('<h1>401 – You must be logged in to access this page.</h1>');
   }
   next();
 }
 
-// HOME – shows latest workouts (read from DB)
+// ---------------- HOME PAGE ----------------
 app.get('/', async (req, res) => {
   let latestWorkouts = [];
   try {
@@ -60,21 +54,17 @@ app.get('/', async (req, res) => {
   res.render('home', { latestWorkouts });
 });
 
-// ABOUT – simple static description page
+// ---------------- ABOUT PAGE ----------------
 app.get('/about', (req, res) => {
   res.render('about');
 });
 
-// LOGIN – GET
+// ---------------- LOGIN ----------------
 app.get('/login', (req, res) => {
-  // if already logged in, go to workouts
-  if (req.session.user) {
-    return res.redirect('/workouts');
-  }
+  if (req.session.user) return res.redirect('/workouts');
   res.render('login', { error: null });
 });
 
-// LOGIN – POST (gold/smiths from DB)
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -99,14 +89,14 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// LOGOUT
+// ---------------- LOGOUT ----------------
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
   });
 });
 
-// LIST WORKOUTS – requires login
+// ---------------- LIST WORKOUTS (LOGIN REQUIRED, NO REDIRECT) ----------------
 app.get('/workouts', requireLogin, async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -123,12 +113,12 @@ app.get('/workouts', requireLogin, async (req, res) => {
   }
 });
 
-// ADD WORKOUT – form
+// ---------------- ADD WORKOUT FORM (LOGIN REQUIRED) ----------------
 app.get('/workouts/add', requireLogin, (req, res) => {
   res.render('workout_form', { error: null });
 });
 
-// ADD WORKOUT – handle POST, insert into DB (compulsory form feature)
+// ---------------- ADD WORKOUT SUBMIT (LOGIN REQUIRED) ----------------
 app.post('/workouts/add', requireLogin, async (req, res) => {
   const { workout_date, activity, duration_minutes, intensity, notes } = req.body;
 
@@ -151,14 +141,16 @@ app.post('/workouts/add', requireLogin, async (req, res) => {
         notes || null
       ]
     );
+
     res.redirect('/workouts');
+
   } catch (err) {
     console.error('Error inserting workout', err);
     res.render('workout_form', { error: 'Error saving workout.' });
   }
 });
 
-// SEARCH – form page
+// ---------------- SEARCH ----------------
 app.get('/search', (req, res) => {
   res.render('search', {
     results: null,
@@ -167,7 +159,6 @@ app.get('/search', (req, res) => {
   });
 });
 
-// SEARCH RESULTS – search against DB (compulsory search feature)
 app.get('/search/results', async (req, res) => {
   const q = (req.query.q || '').trim();
 
@@ -193,6 +184,7 @@ app.get('/search/results', async (req, res) => {
       query: q,
       message: rows.length === 0 ? 'No workouts found.' : null
     });
+
   } catch (err) {
     console.error('Error searching workouts', err);
     res.render('search_results', {
@@ -203,19 +195,15 @@ app.get('/search/results', async (req, res) => {
   }
 });
 
-// REGISTER – GET
+// ---------------- REGISTER ----------------
 app.get('/register', (req, res) => {
-  // If already logged in, skip registration
   if (req.session.user) return res.redirect('/workouts');
-
   res.render('register', { error: null });
 });
 
-// REGISTER – POST
 app.post('/register', async (req, res) => {
   const { username, password, confirm_password } = req.body;
 
-  // Basic validation
   if (!username || !password || !confirm_password) {
     return res.render('register', { error: 'All fields are required.' });
   }
@@ -225,7 +213,6 @@ app.post('/register', async (req, res) => {
   }
 
   try {
-    // Check if username exists
     const [existing] = await db.query(
       "SELECT id FROM users WHERE username = ?",
       [username]
@@ -235,13 +222,11 @@ app.post('/register', async (req, res) => {
       return res.render('register', { error: 'Username already taken.' });
     }
 
-    // Insert user
     await db.query(
       "INSERT INTO users (username, password) VALUES (?, ?)",
-      [username, password] // plain text allowed per brief
+      [username, password]
     );
 
-    // Redirect to login
     res.redirect('/login');
 
   } catch (err) {
@@ -250,12 +235,12 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// 404 fallback
+// ---------------- 404 PAGE ----------------
 app.use((req, res) => {
   res.status(404).send('<h1>404 – Page not found</h1>');
 });
 
-// Start server on port 8000 (required)
+// ---------------- START SERVER ----------------
 const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Workout Tracker running at http://localhost:${PORT}`);
