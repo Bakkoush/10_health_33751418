@@ -61,7 +61,10 @@ app.get('/about', (req, res) => {
 
 // ---------------- LOGIN ----------------
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/workouts');
+  // If already logged in, just show the login page with a message instead of redirect
+  if (req.session.user) {
+    return res.render('login', { error: 'You are already logged in.' });
+  }
   res.render('login', { error: null });
 });
 
@@ -79,7 +82,9 @@ app.post('/login', async (req, res) => {
         id: rows[0].id,
         username: rows[0].username
       };
-      return res.redirect('/workouts');
+
+      return res.render('login', { error: 'Login successful! You may now access protected pages.' });
+
     } else {
       return res.render('login', { error: 'Invalid username or password' });
     }
@@ -88,6 +93,7 @@ app.post('/login', async (req, res) => {
     return res.render('login', { error: 'An error occurred while logging in' });
   }
 });
+
 
 // ---------------- LOGOUT ----------------
 app.get('/logout', (req, res) => {
