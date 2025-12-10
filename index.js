@@ -95,7 +95,7 @@ app.post('/login', async (req, res) => {
 // ---------------- LOGOUT ----------------
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/');
+    res.render('/');
   });
 });
 
