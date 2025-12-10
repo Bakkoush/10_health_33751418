@@ -1,36 +1,33 @@
 <%- include('partials/header') %>
 
-<h2>Welcome</h2>
-<p>
-  This health &amp; fitness app lets you log your workouts and search
-  activities logged by other users.
-</p>
+<section class="hero">
+  <h2>Welcome to Your Fitness Tracker</h2>
+  <p>Track your workouts, stay motivated, and follow your fitness journey.</p>
 
-<h3>Latest Workouts</h3>
+  <% if (!currentUser) { %>
+    <a href="/register" class="btn primary">Create an Account</a>
+    <a href="/login" class="btn">Log In</a>
+  <% } else { %>
+    <a href="/workouts/add" class="btn primary">Log a New Workout</a>
+    <a href="/workouts" class="btn">View My Workouts</a>
+  <% } %>
+</section>
 
-<% if (latestWorkouts && latestWorkouts.length > 0) { %>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Activity</th>
-        <th>Duration (mins)</th>
-        <th>User</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% latestWorkouts.forEach(w => { %>
-        <tr>
-          <td><%= w.workout_date.toISOString().slice(0,10) %></td>
-          <td><%= w.activity %></td>
-          <td><%= w.duration_minutes %></td>
-          <td><%= w.username %></td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-<% } else { %>
-  <p>No workouts have been logged yet.</p>
-<% } %>
+<section class="features">
+  <div class="feature-box">
+    <h3>📝 Log Your Workouts</h3>
+    <p>Keep track of your daily exercises with quick and simple workout logs.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>📊 Track Your Progress</h3>
+    <p>Review all your previous workouts to see how far you've come.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>🔍 Search Activities</h3>
+    <p>Find workouts logged by other users for ideas and inspiration.</p>
+  </div>
+</section>
 
 <%- include('partials/footer') %>

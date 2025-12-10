@@ -1,8 +1,12 @@
 <%- include('partials/header') %>
 
 <h2>Welcome, <%= user.username %>!</h2>
+
 <p>You are now logged in.</p>
 
-<a href="/workouts">Go to My Workouts</a>
+<div class="loggedin-links">
+  <a class="btn" href="/workouts">View My Workouts</a>
+  <a class="btn" href="/workouts/add">Add a Workout</a>
+</div>
 
 <%- include('partials/footer') %>
