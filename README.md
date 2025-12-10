@@ -1,8 +1,11 @@
+Best way to see the README.md is to select code because the diagrams look broken on the first selection
+
 1. Application Outline
 
 The Workout Tracker application is a lightweight health and fitness logging system that allows users to record, view, and search their personal workouts. 
 The system provides essential CRUD-style functionality by enabling users to log workout sessions with details such as the date, activity type, duration, intensity, and optional notes. 
-Users can register for an account, log in, and access personalised features such as viewing their own workout history and adding new entries. The application also includes a global search function that allows users to discover activities logged by other users, making the system both personal and community-focused.
+Users can register for an account, log in, and access personalised features such as viewing their own workout history and adding new entries. 
+The application also includes a global search function that allows users to discover activities logged by other users, making the system both personal and community-focused.
 
 The application is built with simplicity and usability in mind, featuring a clear navigation bar, secure session-based authentication, and a clean interface. 
 Dynamic content is rendered using EJS templates, generating individual pages based on the user’s state (logged in or not). 
@@ -129,5 +132,5 @@ Database logic is separated into a db.js module, ensuring maintainability and se
 
 6. AI Declaration
 
-AI tools, including ChatGPT, were used to assist in generating explanations, clarifying code behaviour, writing documentation, and helping structure parts of the assignment. 
-All coding and final design decisions were performed by the student, and AI assistance was used only for support and improvement, not full automation.
+AI tools, including ChatGPT, were used to assist in generating explanations, clarifying code behaviour, and helping structure parts of the assignment. 
+All coding and final design decisions were performed by myself, and AI assistance was used only for support and improvement, not full automation.
