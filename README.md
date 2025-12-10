@@ -129,4 +129,5 @@ Database logic is separated into a db.js module, ensuring maintainability and se
 
 6. AI Declaration
 
-AI tools, including ChatGPT, were used to assist in generating explanations, clarifying code behaviour, writing documentation, and helping structure parts of the assignment. All coding and final design decisions were performed by the student, and AI assistance was used only for support and improvement, not full automation.
+AI tools, including ChatGPT, were used to assist in generating explanations, clarifying code behaviour, writing documentation, and helping structure parts of the assignment. 
+All coding and final design decisions were performed by the student, and AI assistance was used only for support and improvement, not full automation.
