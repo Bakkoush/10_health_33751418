@@ -27,14 +27,11 @@ app.use(
   })
 );
 
-// ---------------- LOGIN PROTECTION ----------------
-// NO redirect – shows 401 instead
-function requireLogin(req, res, next) {
-  if (!req.session.user) {
-    return res.status(401).send('<h1>401 – You must be logged in to access this page.</h1>');
-  }
+// ⭐ ADD THIS — Makes currentUser available in header.ejs
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.user || null;
   next();
-}
+});
 
 // ---------------- HOME PAGE ----------------
 app.get('/', async (req, res) => {
@@ -61,7 +58,7 @@ app.get('/about', (req, res) => {
 
 // ---------------- LOGIN ----------------
 app.get('/login', (req, res) => {
-  // If already logged in, just show loggedin page
+  // If already logged in → show logged-in page, NOT redirect
   if (req.session.user) {
     return res.render('loggedin', { user: req.session.user });
   }
@@ -83,7 +80,7 @@ app.post('/login', async (req, res) => {
         username: rows[0].username
       };
 
-      // ⭐ SUCCESS — show loggedin.ejs
+      // ⭐ NO redirect → show loggedin page
       return res.render('loggedin', { user: req.session.user });
 
     } else {
@@ -95,8 +92,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-
 // ---------------- LOGOUT ----------------
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
@@ -104,7 +99,15 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// ---------------- LIST WORKOUTS (LOGIN REQUIRED, NO REDIRECT) ----------------
+// ---------------- LOGIN PROTECTION (shows 401, no redirect) ----------------
+function requireLogin(req, res, next) {
+  if (!req.session.user) {
+    return res.status(401).send('<h1>401 – You must be logged in to access this page.</h1>');
+  }
+  next();
+}
+
+// ---------------- LIST WORKOUTS ----------------
 app.get('/workouts', requireLogin, async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -121,12 +124,12 @@ app.get('/workouts', requireLogin, async (req, res) => {
   }
 });
 
-// ---------------- ADD WORKOUT FORM (LOGIN REQUIRED) ----------------
+// ---------------- ADD WORKOUT FORM ----------------
 app.get('/workouts/add', requireLogin, (req, res) => {
   res.render('workout_form', { error: null });
 });
 
-// ---------------- ADD WORKOUT SUBMIT (LOGIN REQUIRED) ----------------
+// ---------------- ADD WORKOUT SUBMIT ----------------
 app.post('/workouts/add', requireLogin, async (req, res) => {
   const { workout_date, activity, duration_minutes, intensity, notes } = req.body;
 
@@ -205,7 +208,9 @@ app.get('/search/results', async (req, res) => {
 
 // ---------------- REGISTER ----------------
 app.get('/register', (req, res) => {
-  if (req.session.user) return res.redirect('/workouts');
+  if (req.session.user) {
+    return res.render('loggedin', { user: req.session.user });
+  }
   res.render('register', { error: null });
 });
 
@@ -235,7 +240,7 @@ app.post('/register', async (req, res) => {
       [username, password]
     );
 
-    res.redirect('/login');
+    return res.render('login', { error: 'Account created! Please log in.' });
 
   } catch (err) {
     console.error('Registration error:', err);
