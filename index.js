@@ -27,7 +27,7 @@ app.use(
   })
 );
 
-// ⭐ ADD THIS — Makes currentUser available in header.ejs
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user || null;
   next();
@@ -80,7 +80,7 @@ app.post('/login', async (req, res) => {
         username: rows[0].username
       };
 
-      // ⭐ NO redirect → show loggedin page
+      
       return res.render('loggedin', { user: req.session.user });
 
     } else {
