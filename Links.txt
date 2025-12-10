@@ -1,0 +1,7 @@
+home=http://www.doc.gold.ac.uk/usr/387/
+about=http://www.doc.gold.ac.uk/usr/387/about
+search=http://www.doc.gold.ac.uk/usr/387/search
+login=http://www.doc.gold.ac.uk/usr/387/login
+register=http://www.doc.gold.ac.uk/usr/387/register
+workouts=http://www.doc.gold.ac.uk/usr/387/workouts
+add workouts=http://www.doc.gold.ac.uk/usr/387/workouts/add
