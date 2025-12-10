@@ -1,11 +1,11 @@
-✅ 1. Application Outline (≈200 words)
+ 1. Application Outline
 
 The Workout Tracker application is a lightweight health and fitness logging system that allows users to record, view, and search their personal workouts. The system provides essential CRUD-style functionality by enabling users to log workout sessions with details such as the date, activity type, duration, intensity, and optional notes. Users can register for an account, log in, and access personalised features such as viewing their own workout history and adding new entries. The application also includes a global search function that allows users to discover activities logged by other users, making the system both personal and community-focused.
 
 The application is built with simplicity and usability in mind, featuring a clear navigation bar, secure session-based authentication, and a clean interface. Dynamic content is rendered using EJS templates, generating individual pages based on the user’s state (logged in or not). All workout data and user accounts are stored securely in a MySQL database. The app aims to provide a straightforward digital fitness log that can be extended further with additional analytics or multimedia features.
 
-✅ 2. High-Level Architecture (≈100 words + diagram)
-Architecture Description (100 words)
+ 2. High-Level Architecture 
+Architecture Description 
 
 The application follows a classic two-tier architecture consisting of an application tier and a data tier.
 The application tier uses Node.js, Express.js, and EJS templates to handle routing, authentication, form processing, and rendering views. User sessions are stored server-side using express-session.
@@ -31,8 +31,8 @@ Architecture Diagram
 |  users, workouts tables   |
 +---------------------------+
 
-✅ 3. Data Model (≈100 words + diagram)
-Data Model Description (100 words)
+ 3. Data Model
+Data Model Description
 
 The database contains two main tables: users and workouts.
 The users table stores login credentials, including a unique ID, username, and password.
@@ -50,7 +50,7 @@ Data Model Diagram
                                      | notes         |
                                      +---------------+
 
-✅ 4. User-Facing Functionality (≈500 words)
+ 4. User-Facing Functionality 
 
 The application provides a simple, intuitive interface for interacting with workout data. Upon loading the homepage, users are greeted with a clean welcome section that introduces the platform and offers clear call-to-action buttons. Logged-out users see options to register or log in, while logged-in users see shortcuts to add a new workout or view their existing logs.
 
@@ -74,7 +74,7 @@ Screenshots
 
 (You may capture and insert screenshots here: homepage, login form, registration, workouts list, add form, search.)
 
-✅ 5. Advanced Techniques (optional, ≈500 words)
+ 5. Advanced Techniques 
 1. Dynamic Navigation Rendering Using Middleware
 
 The application uses a small middleware function to pass the logged-in user to all templates:
@@ -108,6 +108,6 @@ Each page is generated server-side using EJS, which helps maintain consistent st
 
 Database logic is separated into a db.js module, ensuring maintainability and separation of concerns.
 
-✅ 6. AI Declaration
+6. AI Declaration
 
 AI tools, including ChatGPT, were used to assist in generating explanations, clarifying code behaviour, writing documentation, and helping structure parts of the assignment. All coding and final design decisions were performed by the student, and AI assistance was used only for support and improvement, not full automation.
