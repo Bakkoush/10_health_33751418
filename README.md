@@ -1,4 +1,4 @@
-Best way to see the README.md is to select code because the diagrams look broken on the first selection
+Best way to see the README.md is to select code because the diagrams look broken on the preview section
 
 1. Application Outline
 
