@@ -73,7 +73,7 @@ Project Structure
 │
 └── README.md              # Documentation
 
-⚙️ Installation & Setup
+Installation & Setup
 Install Dependencies
 
 Run inside the project folder:
