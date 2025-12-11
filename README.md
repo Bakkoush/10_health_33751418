@@ -1,3 +1,5 @@
+Best way to see the README.md is to select code because the diagrams looks broken on the preview section
+
 The Workout Tracker is a simple web application that allows users to log, manage, and search workout activities.
 It features user authentication, personalised workout logs, and global search across all users.
 The project demonstrates dynamic web development skills using Node.js, Express, EJS, and MySQL.
